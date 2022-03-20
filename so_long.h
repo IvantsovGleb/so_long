@@ -152,6 +152,7 @@ typedef struct s_game
     t_collectable coll;
     t_exit      exit;
     t_mob       player;
+    int         moves;
 //    t_mob       npc;
 }       t_game;
 
@@ -169,7 +170,7 @@ void    open_player_images(t_game *game);
 int     key_pressed(int keycode, t_game *game);
 int     mouse_hook(int keycode, t_game *game);
 
-void    move_player(enum e_movement_dir dir, t_game *game);
+t_bool  move_player(enum e_movement_dir dir, t_game *game);
 
 void    draw_empty(t_game *game);
 void    draw_walls(t_game *game);

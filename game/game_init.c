@@ -11,6 +11,7 @@ static void    set_gamevars(t_game *game, char **map)
     game->wall.lst_wll = (void *) 0;
     game->coll.lst_cl = (void *) 0;
     game->coll.collects = 0;
+    game->moves = 0;
     y = 0;
     while (map[y])
     {

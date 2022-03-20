@@ -20,32 +20,20 @@ static void     end_game(t_game *game)
 
 int     key_pressed(int keycode, t_game *game)
 {
-    if (keycode == W)
-    {
-        move_player(UP, game);
-    }
-    else if (keycode == A)
-    {
-        move_player(LEFT, game);
-    }
-    else if (keycode == S)
-    {
-        move_player(DOWN, game);
-    }
-    else if (keycode == D)
-    {
-        move_player(RIGHT, game);
-    }
-    else if (keycode == ESC)
-    {
-        end_game(game);
-    }
-    return (0);
-}
+    t_bool  moved;
 
-int mouse_hook(int keycode, t_game *game)
-{
-    if (keycode == 1)
-        printf("ok\n");
+    if (keycode == W)
+        moved = move_player(UP, game);
+    else if (keycode == A)
+        moved = move_player(LEFT, game);
+    else if (keycode == S)
+        moved = move_player(DOWN, game);
+    else if (keycode == D)
+        moved = move_player(RIGHT, game);
+    else if (keycode == ESC)
+        end_game(game);
+    if (moved)
+        game->moves++;
+    printf("moves=%d\n", game->moves);
     return (0);
 }

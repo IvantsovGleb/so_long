@@ -13,7 +13,7 @@ static t_bool   add_empty(t_empty *empty, int x, int y)
     return (TRUE);
 }
 
-static t_bool   add_wall(t_wall *wall, int x, int y)
+static t_bool   add_wall(t_wall *wall, int x, int y, t_point win_sz)
 {
     t_point    *wll_pos;
 
@@ -54,7 +54,7 @@ t_bool   define_code(t_game *game, int x, int y, t_tile_code code)
     if (code == EMP)
         return (add_empty(&game->empty, x, y));
     else if (code == WLL)
-        return (add_wall(&game->wall, x, y));
+        return (add_wall(&game->wall, x, y, game->win_sz));
     else if (code == COLL)
         return (add_empty(&game->empty, x, y) && add_collectible(&game->coll, x, y));
     else if (code == EXT)

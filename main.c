@@ -13,7 +13,6 @@ int     main(int argc, char **argv)
 
     mlx_expose_hook(game.win, mouse_hook, &game);
 
-//    mlx_mouse_hook(game.win, mouse_hook, &game);
     mlx_loop_hook(game.mlx, render, (void *)&game);
     mlx_loop(game.mlx);
     return (0);
