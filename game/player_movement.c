@@ -18,7 +18,7 @@ static void     check_coll_collision(t_player *plr, t_collectable *coll)
     }
 }
 
-static t_bool      check_wall_collision(t_player *plr, t_list *lst_wall, t_exit exit)
+static t_bool      check_wall_collision(t_player *plr, t_list *lst_wall)
 {
     t_list  *p_lst;
     t_point *wll_pos;
@@ -63,7 +63,7 @@ static t_bool   check_collision(enum e_movement_dir dir, t_game *game)
         return (FALSE);
     }
     check_coll_collision(&game->player, &game->coll);
-    if (!(check_wall_collision(&game->player, game->wall.lst_wll, game->exit)
+    if (!(check_wall_collision(&game->player, game->wall.lst_wll)
             && check_npc_collision(&game->player, game->npc.lst_npc)))
     {
         reset_pos(dir, &game->player);
