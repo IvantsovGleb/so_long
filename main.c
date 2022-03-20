@@ -10,9 +10,6 @@ int     main(int argc, char **argv)
     printf("start pos (%d, %d)\n", game.player.coords.y, game.player.coords.x);
 
     mlx_hook(game.win, 2, 0, key_pressed, (void *)&game);
-
-    mlx_expose_hook(game.win, mouse_hook, &game);
-
     mlx_loop_hook(game.mlx, render, (void *)&game);
     mlx_loop(game.mlx);
     return (0);

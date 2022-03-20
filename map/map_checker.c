@@ -14,7 +14,7 @@ t_bool   extension(int argc, char *argv[])
 static t_bool   uniq_char(char ch, struct s_map_info *info)
 {
     if (ch == '0' || ch == '1' || ch == 'C'
-        || ch == 'E' || ch == 'P')
+        || ch == 'E' || ch == 'P' || ch == 'S')
     {
         if (ch == 'E')
         {
@@ -83,7 +83,7 @@ t_bool  map_valid(char **map)
     if (!info.walls)
         return (error("map is not closed/surrounded by walls\n"));
     if (!info.uniq_ch)
-        return (error("map is not composed of '0', '1', 'E', 'C', 'P' characters\n"));
+        return (error("map is not composed of '0', '1', 'E', 'C', 'P' ('S' optional) characters\n"));
     if (!(info.is_E && info.is_C && info.is_P))
         return (error("map must contain at least 1 exit, 1 collectible, and 1 starting position\n"));
     if (info.count_P > 1 || info.count_E > 1)

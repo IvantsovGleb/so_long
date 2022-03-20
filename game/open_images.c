@@ -1,11 +1,5 @@
 #include "../so_long.h"
 
- void     open_empty_images(t_game *game)
-{
-    game->empty.empty_img = mlx_xpm_file_to_image(game->mlx, "sprites/floor(64x64).xpm",
-                                                  &game->empty.img_sz.x, &game->empty.img_sz.y);
-}
-
 void     open_wall_images(t_game *game)
 {
     game->wall.box = mlx_xpm_file_to_image(game->mlx, "sprites/box(64x92).xpm",
@@ -32,55 +26,58 @@ void     open_wall_images(t_game *game)
                                                     &game->wall.img_sz.x, &game->wall.img_sz.y);
 }
 
-void     open_collectible_images(t_game *game)
+void     open_ece(void *mlx, t_empty *empty, t_collectable *coll, t_exit *exit)
 {
-    game->coll.gem0 = mlx_xpm_file_to_image(game->mlx, "sprites/gem0.xpm",
-                                                  &game->coll.img_sz.x, &game->coll.img_sz.y);
-    game->coll.gem1 = mlx_xpm_file_to_image(game->mlx, "sprites/gem1.xpm",
-                                              &game->coll.img_sz.x, &game->coll.img_sz.y);
-    game->coll.gem2 = mlx_xpm_file_to_image(game->mlx, "sprites/gem2.xpm",
-                                              &game->coll.img_sz.x, &game->coll.img_sz.y);
-    game->coll.gem3 = mlx_xpm_file_to_image(game->mlx, "sprites/gem3.xpm",
-                                              &game->coll.img_sz.x, &game->coll.img_sz.y);
-    game->coll.gem4 = mlx_xpm_file_to_image(game->mlx, "sprites/gem4.xpm",
-                                              &game->coll.img_sz.x, &game->coll.img_sz.y);
-    game->coll.curr_img = game->coll.gem0;
-    game->coll.anim_frames = 10;
+    empty->ground = mlx_xpm_file_to_image(mlx, "sprites/ground.xpm",
+                                                  &empty->img_sz.x, &empty->img_sz.y);
+    coll->gem_0 = mlx_xpm_file_to_image(mlx, "sprites/gem_0.xpm",
+                                            &coll->img_sz.x, &coll->img_sz.y);
+    coll->gem_1 = mlx_xpm_file_to_image(mlx, "sprites/gem_1.xpm",
+                                            &coll->img_sz.x, &coll->img_sz.y);
+    coll->gem_2 = mlx_xpm_file_to_image(mlx, "sprites/gem_2.xpm",
+                                            &coll->img_sz.x, &coll->img_sz.y);
+    coll->gem_3 = mlx_xpm_file_to_image(mlx, "sprites/gem_3.xpm",
+                                            &coll->img_sz.x, &coll->img_sz.y);
+    coll->gem_4 = mlx_xpm_file_to_image(mlx, "sprites/gem_4.xpm",
+                                            &coll->img_sz.x, &coll->img_sz.y);
+    coll->curr_img = coll->gem_0;
+    coll->anim_frames = 10;
+    exit->ladder = mlx_xpm_file_to_image(mlx, "sprites/ladder.xpm",
+                                             &exit->img_sz.x, &exit->img_sz.y);
 }
 
-void     open_exit_images(t_game *game)
+void    open_plr_images(void *mlx, t_player *plr)
 {
-    game->exit.idle0 = mlx_xpm_file_to_image(game->mlx, "sprites/portal_idle_0.xpm",
-                                            &game->exit.img_sz.x, &game->exit.img_sz.y);
-    game->exit.idle1 = mlx_xpm_file_to_image(game->mlx, "sprites/portal_idle_1.xpm",
-                                            &game->exit.img_sz.x, &game->exit.img_sz.y);
-    game->exit.idle2 = mlx_xpm_file_to_image(game->mlx, "sprites/portal_idle_2.xpm",
-                                            &game->exit.img_sz.x, &game->exit.img_sz.y);
-    game->exit.idle3 = mlx_xpm_file_to_image(game->mlx, "sprites/portal_idle_3.xpm",
-                                            &game->exit.img_sz.x, &game->exit.img_sz.y);
-    game->exit.idle4 = mlx_xpm_file_to_image(game->mlx, "sprites/portal_idle_4.xpm",
-                                            &game->exit.img_sz.x, &game->exit.img_sz.y);
-    game->exit.idle5 = mlx_xpm_file_to_image(game->mlx, "sprites/portal_idle_5.xpm",
-                                             &game->exit.img_sz.x, &game->exit.img_sz.y);
-    game->exit.idle6 = mlx_xpm_file_to_image(game->mlx, "sprites/portal_idle_6.xpm",
-                                             &game->exit.img_sz.x, &game->exit.img_sz.y);
-    game->exit.curr_img = game->exit.idle0;
-    game->exit.anim_frames = 4;
+    plr->idle_0 = mlx_xpm_file_to_image(mlx, "sprites/knight_0.xpm",
+                                           &plr->img_sz.x, &plr->img_sz.y);
+    plr->idle_1 = mlx_xpm_file_to_image(mlx, "sprites/knight_1.xpm",
+                                           &plr->img_sz.x, &plr->img_sz.y);
+    plr->idle_2 = mlx_xpm_file_to_image(mlx, "sprites/knight_2.xpm",
+                                           &plr->img_sz.x, &plr->img_sz.y);
+    plr->idle_3 = mlx_xpm_file_to_image(mlx, "sprites/knight_3.xpm",
+                                           &plr->img_sz.x, &plr->img_sz.y);
+    plr->curr_img = plr->idle_0;
+    plr->anim_frames = 10;
+    plr->dead_0 = mlx_xpm_file_to_image(mlx, "sprites/skelet_0.xpm",
+                                           &plr->img_sz.x, &plr->img_sz.y);
+    plr->dead_1 = mlx_xpm_file_to_image(mlx, "sprites/skelet_1.xpm",
+                                           &plr->img_sz.x, &plr->img_sz.y);
+    plr->dead_2 = mlx_xpm_file_to_image(mlx, "sprites/skelet_2.xpm",
+                                           &plr->img_sz.x, &plr->img_sz.y);
+    plr->dead_3 = mlx_xpm_file_to_image(mlx, "sprites/skelet_3.xpm",
+                                           &plr->img_sz.x, &plr->img_sz.y);
 }
 
-void    open_player_images(t_game *game)
+void    open_npc_images(void *mlx, t_npc *npc)
 {
-    t_mob   *plr;
-
-    plr = &game->player;
-    plr->idle_img0 = mlx_xpm_file_to_image(game->mlx, "sprites/plr_idle0(64x64).xpm",
-                                           &plr->img_sz.x, &plr->img_sz.y);
-    plr->idle_img1 = mlx_xpm_file_to_image(game->mlx, "sprites/plr_idle1(64x64).xpm",
-                                           &plr->img_sz.x, &plr->img_sz.y);
-    plr->idle_img2 = mlx_xpm_file_to_image(game->mlx, "sprites/plr_idle2(64x64).xpm",
-                                           &plr->img_sz.x, &plr->img_sz.y);
-    plr->idle_img3 = mlx_xpm_file_to_image(game->mlx, "sprites/plr_idle3(64x64).xpm",
-                                           &plr->img_sz.x, &plr->img_sz.y);
-    game->player.curr_img = game->player.idle_img0;
-    game->player.anim_frames = 10;
+    npc->idle_0 = mlx_xpm_file_to_image(mlx, "sprites/swampy_0.xpm",
+                                           &npc->img_sz.x, &npc->img_sz.y);
+    npc->idle_1 = mlx_xpm_file_to_image(mlx, "sprites/swampy_1.xpm",
+                                           &npc->img_sz.x, &npc->img_sz.y);
+    npc->idle_2 = mlx_xpm_file_to_image(mlx, "sprites/swampy_2.xpm",
+                                           &npc->img_sz.x, &npc->img_sz.y);
+    npc->idle_3 = mlx_xpm_file_to_image(mlx, "sprites/swampy_3.xpm",
+                                           &npc->img_sz.x, &npc->img_sz.y);
+    npc->curr_img = npc->idle_0;
+    npc->anim_frames = 10;
 }

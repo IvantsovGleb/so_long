@@ -1,18 +1,6 @@
 #include "../so_long.h"
 
-static void        reset_pos(enum e_movement_dir dir, t_mob *plr)
-{
-    if (dir == UP)
-        plr->coords.y = plr->old_coords.y;
-    else if (dir == LEFT)
-        plr->coords.x = plr->old_coords.x;
-    else if (dir == DOWN)
-        plr->coords.y = plr->old_coords.y;
-    else if (dir == RIGHT)
-        plr->coords.x = plr->old_coords.x;
-}
-
-static void     check_coll_collision(t_mob *plr, t_collectable *coll)
+static void     check_coll_collision(t_player *plr, t_collectable *coll)
 {
     t_list  *p_lst;
     t_cl    *cl;
@@ -30,7 +18,7 @@ static void     check_coll_collision(t_mob *plr, t_collectable *coll)
     }
 }
 
-static t_bool      check_wall_collision(t_mob *plr, t_list *lst_wall, t_exit exit)
+static t_bool      check_wall_collision(t_player *plr, t_list *lst_wall, t_exit exit)
 {
     t_list  *p_lst;
     t_point *wll_pos;
@@ -46,10 +34,37 @@ static t_bool      check_wall_collision(t_mob *plr, t_list *lst_wall, t_exit exi
     return (TRUE);
 }
 
+static t_bool      check_npc_collision(t_player *plr, t_list *lst_npc)
+{
+    t_list  *p_lst;
+    t_point *npc_pos;
+
+    p_lst = lst_npc;
+    while (p_lst)
+    {
+        npc_pos = (t_point *)p_lst->content;
+        if (npc_pos->x == plr->coords.x && npc_pos->y == plr->coords.y)
+        {
+            plr->state = DEAD;
+            return (FALSE);
+        }
+        p_lst = p_lst->next;
+    }
+    return (TRUE);
+}
+
 static t_bool   check_collision(enum e_movement_dir dir, t_game *game)
 {
+    if (game->exit.pos.y == game->player.coords.y && game->exit.pos.x == game->player.coords.x
+        && game->coll.collects <= 0)
+    {
+        game->player.state = WIN;
+        game->player.visible = FALSE;
+        return (FALSE);
+    }
     check_coll_collision(&game->player, &game->coll);
-    if (!check_wall_collision(&game->player, game->wall.lst_wll, game->exit))
+    if (!(check_wall_collision(&game->player, game->wall.lst_wll, game->exit)
+            && check_npc_collision(&game->player, game->npc.lst_npc)))
     {
         reset_pos(dir, &game->player);
         return (FALSE);
@@ -59,22 +74,22 @@ static t_bool   check_collision(enum e_movement_dir dir, t_game *game)
 
 t_bool      move_player(enum e_movement_dir dir, t_game *game)
 {
-    if (dir == UP)
+    if (dir == UP && game->player.state == ALIVE)
     {
         game->player.old_coords.y = game->player.coords.y;
         game->player.coords.y -= TILE_SIZE;
     }
-    else if (dir == LEFT)
+    else if (dir == LEFT && game->player.state == ALIVE)
     {
         game->player.old_coords.x = game->player.coords.x;
         game->player.coords.x -= TILE_SIZE;
     }
-    else if (dir == DOWN)
+    else if (dir == DOWN && game->player.state == ALIVE)
     {
         game->player.old_coords.y = game->player.coords.y;
         game->player.coords.y += TILE_SIZE;
     }
-    else if (dir == RIGHT)
+    else if (dir == RIGHT && game->player.state == ALIVE)
     {
         game->player.old_coords.x = game->player.coords.x;
         game->player.coords.x += TILE_SIZE;

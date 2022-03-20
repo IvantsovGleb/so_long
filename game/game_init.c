@@ -1,6 +1,27 @@
 #include "../so_long.h"
 
-t_bool   define_code(t_game *game, int x, int y, t_tile_code code);
+static t_bool   define_code(t_game *game, int x, int y, t_tile_code code)
+{
+    if (code == EMP)
+        return (add_pos(&game->empty.lst_emp, x, y));
+    else if (code == WLL)
+        return (add_pos(&game->wall.lst_wll, x, y));
+    else if (code == COLL)
+        return (add_collectible(&game->coll, x, y, &game->empty));
+    else if (code == EXT)
+    {
+        game->exit.pos.x = x * TILE_SIZE;
+        game->exit.pos.y = y * TILE_SIZE;
+        game->exit.opened = FALSE;
+        return (add_pos(&game->empty.lst_emp, x, y));
+    }
+    else if (code == PLR)
+        return (add_player(&game->player, x, y, &game->empty));
+    else if (code == NPC)
+        return (add_pos(&game->npc.lst_npc, x, y) && add_pos(&game->empty.lst_emp, x, y));
+    return (TRUE);
+}
+
 
 static void    set_gamevars(t_game *game, char **map)
 {
@@ -10,8 +31,11 @@ static void    set_gamevars(t_game *game, char **map)
     game->empty.lst_emp = (void *) 0;
     game->wall.lst_wll = (void *) 0;
     game->coll.lst_cl = (void *) 0;
+    game->npc.lst_npc = (void *) 0;
     game->coll.collects = 0;
-    game->moves = 0;
+    game->move.moved = FALSE;
+    game->move.moves = 0;
+    game->move.s_moves = (void *) 0;
     y = 0;
     while (map[y])
     {
@@ -29,11 +53,10 @@ static void    set_gamevars(t_game *game, char **map)
 
 static void    open_images(t_game  *game)
 {
-    open_empty_images(game);
     open_wall_images(game);
-    open_collectible_images(game);
-    open_exit_images(game);
-    open_player_images(game);
+    open_ece(game->mlx, &game->empty, &game->coll, &game->exit);
+    open_plr_images(game->mlx, &game->player);
+    open_npc_images(game->mlx, &game->npc);
 }
 
 t_bool  game_init(t_game *game, int argc, char *argv[])
@@ -47,7 +70,7 @@ t_bool  game_init(t_game *game, int argc, char *argv[])
     }
     else
     {
-        mem_free(game->chr_map);
+        end_game(game);
         return (FALSE);
     }
     game->mlx = mlx_init();

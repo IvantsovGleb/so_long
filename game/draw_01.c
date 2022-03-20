@@ -11,7 +11,7 @@ void    draw_empty(t_game *game)
     {
         x = ((t_point *)p_emp->content)->x;
         y = ((t_point *)p_emp->content)->y;
-        mlx_put_image_to_window(game->mlx, game->win, game->empty.empty_img, x, y);
+        mlx_put_image_to_window(game->mlx, game->win, game->empty.ground, x, y);
         if (y == game->win_sz.y - 2 * TILE_SIZE)
             mlx_put_image_to_window(game->mlx, game->win, game->wall.wall_top, x, y);
         p_emp = p_emp->next;
@@ -49,14 +49,14 @@ static t_bool   draw_sides(t_game *game, int x, int y)
     }
     else if (x == 0)
     {
-        mlx_put_image_to_window(game->mlx, game->win, game->empty.empty_img, x, y);
+        mlx_put_image_to_window(game->mlx, game->win, game->empty.ground, x, y);
         if (y == game->win_sz.y - 2 * TILE_SIZE)
             mlx_put_image_to_window(game->mlx, game->win, game->wall.down_corner_left, x, y);
         mlx_put_image_to_window(game->mlx, game->win, game->wall.left_side, x, y);
     }
     else if (x == game->win_sz.x - TILE_SIZE)
     {
-        mlx_put_image_to_window(game->mlx, game->win, game->empty.empty_img, x, y);
+        mlx_put_image_to_window(game->mlx, game->win, game->empty.ground, x, y);
         if (y == game->win_sz.y - 2 * TILE_SIZE)
             mlx_put_image_to_window(game->mlx, game->win, game->wall.down_corner_right, x, y);
         mlx_put_image_to_window(game->mlx, game->win, game->wall.right_side, x, y);
@@ -83,7 +83,6 @@ void    draw_walls(t_game *game)
             ;
         else
         {
-            mlx_put_image_to_window(game->mlx, game->win, game->empty.empty_img, x, y);
             mlx_put_image_to_window(game->mlx, game->win, game->wall.box, x, y - 28);
         }
         p_wll = p_wll->next;
