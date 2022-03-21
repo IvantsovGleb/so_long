@@ -1,17 +1,27 @@
 cflags = -Wall -Werror -Wextra
 
+rm = rm -rf
+
 frameworks = -framework CoreFoundation -framework AppKit -framework OpenGl
 
 NAME = so_long
 
-src = libft/ft_*.c main.c error.c ./map/*.c ./data_structures/*.c \
-		game/*.c
+src = libft/ft_*.c main.c ./map/*.c ./data_structures/*.c game/*.c
 
-mlx_src = ./mlx/mlx_new_window.m ./mlx/mlx_init_loop.m ./mlx/mlx_new_image.m \
-			./mlx/mlx_shaders.c ./mlx/mlx_int_str_to_wordtab.c ./mlx/mlx_xpm.c \
-			./mlx/mlx_mouse.m
-
-#$(CC) -lz $(frameworks) $(src) -o $(NAME)
+all: $(NAME)
 
 $(NAME) : $(src) so_long.h
-			$(CC) -lz $(frameworks) $(src) $(mlx_src) -o $(NAME)
+			@$(MAKE) -C libft/
+			@$(CC) -lz -lmlx $(frameworks) $(src) $(mlx_src) -o $(NAME)
+
+clean:
+	@$(MAKE) clean -C libft/
+	@$(rm) $(NAME)
+
+fclean: clean
+	@$(MAKE) fclean -C libft/
+	@$(rm) $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: fsinestr <fsinestr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 15:54:24 by fsinestr          #+#    #+#             */
-/*   Updated: 2022/03/21 16:27:07 by fsinestr         ###   ########.fr       */
+/*   Updated: 2022/03/21 19:55:20 by fsinestr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,10 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-
-# include <OpenGL/gl3.h>
-# include "mlx/mlx.h"
-# include "mlx/mlx_new_window.h"
-# include "mlx/mlx_int.h"
+# include <mlx.h>
 
 # include "libft/libft.h"
 # include "data_structures/stretchy_string.h"
-
-/* delete when done */
-# include <stdio.h>
-/*                  */
 
 # define TILE_SIZE  64
 
@@ -203,7 +195,6 @@ t_bool	extension(int argc, char *argv[]);
 t_bool	map_valid(char **map);
 
 int		error(char *message);
-void	*nll_error(char *message);
 
 t_bool	game_init(t_game *game, int argc, char *argv[]);
 t_bool	add_pos(t_list **lst_pos, int x, int y);
@@ -216,7 +207,7 @@ void	open_plr_images(void *mlx, t_player *plr);
 void	open_npc_images(void *mlx, t_npc *npc);
 
 int		key_pressed(int keycode, t_game *game);
-void	end_game(t_game *game);
+int		end_game(void *gm);
 
 t_bool	move_player(enum e_movement_dir dir, t_game *game);
 void	reset_pos(enum e_movement_dir dir, t_player *plr);

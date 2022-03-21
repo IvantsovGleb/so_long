@@ -6,11 +6,18 @@
 /*   By: fsinestr <fsinestr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:20 by fsinestr          #+#    #+#             */
-/*   Updated: 2022/03/21 15:51:22 by fsinestr         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:51:35 by fsinestr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+int	error(char *message)
+{
+	write(2, "Error\n", 6);
+	write(2, message, ft_strlen(message));
+	return (0);
+}
 
 void	reset_pos(enum e_movement_dir dir, t_player *plr)
 {

@@ -6,7 +6,7 @@
 /*   By: fsinestr <fsinestr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:37:55 by fsinestr          #+#    #+#             */
-/*   Updated: 2022/03/21 15:06:13 by fsinestr         ###   ########.fr       */
+/*   Updated: 2022/03/21 19:47:28 by fsinestr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ static void	free_plr_npc(void *mlx, t_player *plr, t_npc *npc)
 	mlx_destroy_image(mlx, npc->idle_3);
 }
 
-void	end_game(t_game *game)
+int	end_game(void *gm)
 {
+	t_game	*game;
+
+	game = (t_game *)gm;
 	mlx_destroy_window(game->mlx, game->win);
 	mem_free(game->chr_map);
 	free(game->move.s_moves);

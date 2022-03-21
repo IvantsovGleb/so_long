@@ -6,7 +6,7 @@
 /*   By: fsinestr <fsinestr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:05 by fsinestr          #+#    #+#             */
-/*   Updated: 2022/03/21 15:12:50 by fsinestr         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:52:45 by fsinestr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_bool	game_init(t_game *game, int argc, char *argv[])
 	}
 	else
 	{
-		end_game(game);
+		mem_free(game->chr_map);
 		return (FALSE);
 	}
 	game->mlx = mlx_init();

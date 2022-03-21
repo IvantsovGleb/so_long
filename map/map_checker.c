@@ -6,7 +6,7 @@
 /*   By: fsinestr <fsinestr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:35:30 by fsinestr          #+#    #+#             */
-/*   Updated: 2022/03/21 16:26:09 by fsinestr         ###   ########.fr       */
+/*   Updated: 2022/03/21 19:57:16 by fsinestr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ t_bool	map_valid(char **map)
 		return (error("map is not closed/surrounded by walls\n"));
 	if (!info.uniq_ch)
 	{
-		error("map is not composed of '0', '1', 'C', 'P' ('S' optional) characters\n");
+		error("map is not composed of '0', '1', 'C', 'P' ('S' opt.) chars\n");
 		return (0);
 	}
 	if (!(info.is_e && info.is_c && info.is_p))
 	{
-		error("map must contain at least 1 exit, 1 collectible and 1 starting position\n");
+		error("map must contain at least 1 'E', 1 'C' and 1 'P' position\n");
 		return (0);
 	}
 	if (info.count_p > 1 || info.count_e > 1)

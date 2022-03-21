@@ -6,7 +6,7 @@
 /*   By: fsinestr <fsinestr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:15 by fsinestr          #+#    #+#             */
-/*   Updated: 2022/03/21 15:48:10 by fsinestr         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:40:43 by fsinestr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	check_coll_collision(t_player *plr, t_collectable *coll)
 	while (p_lst)
 	{
 		cl = (t_cl *)p_lst->content;
-		if (cl->pos.x == plr->coords.x && cl->pos.y == plr->coords.y)
+		if (cl->pos.x == plr->coords.x && cl->pos.y == plr->coords.y
+			&& cl->collected == FALSE)
 		{
 			cl->collected = TRUE;
 			coll->collects -= 1;

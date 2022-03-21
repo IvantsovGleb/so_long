@@ -6,7 +6,7 @@
 /*   By: fsinestr <fsinestr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:00 by fsinestr          #+#    #+#             */
-/*   Updated: 2022/03/21 15:07:32 by fsinestr         ###   ########.fr       */
+/*   Updated: 2022/03/21 19:48:32 by fsinestr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	key_pressed(int keycode, t_game *game)
 	else if (keycode == ESC)
 		end_game(game);
 	if (game->move.moved)
+	{
 		game->move.moves++;
+		game->move.moved = FALSE;
+	}
 	return (0);
 }

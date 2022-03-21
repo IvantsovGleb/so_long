@@ -6,7 +6,7 @@
 /*   By: fsinestr <fsinestr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 13:38:18 by fsinestr          #+#    #+#             */
-/*   Updated: 2022/03/21 15:49:04 by fsinestr         ###   ########.fr       */
+/*   Updated: 2022/03/21 19:49:47 by fsinestr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	render(t_game *game)
 	draw_exit(game);
 	draw_mob(game);
 	draw_walls(game);
-	put_moves_count(game->mlx, game->win, &game->move);
+	if (game->player.state == ALIVE)
+		put_moves_count(game->mlx, game->win, &game->move);
+	else if (game->player.state == DEAD)
+		mlx_string_put(game->mlx, game->win, 32, 15, 0x00FF0000, "game over");
+	else if (game->player.state == WIN)
+		mlx_string_put(game->mlx, game->win, 32, 15, 0x0000FF00, "win");
 	return (1);
 }
