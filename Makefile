@@ -11,16 +11,15 @@ src = libft/ft_*.c main.c ./map/*.c ./data_structures/*.c game/*.c
 all: $(NAME)
 
 $(NAME) : $(src) so_long.h
-			@$(MAKE) -C libft/
-			@$(CC) -lz -lmlx $(frameworks) $(src) $(mlx_src) -o $(NAME)
+			$(MAKE) -C libft/
+			$(CC) -lz -lmlx $(frameworks) $(src) $(mlx_src) -o $(NAME)
 
 clean:
-	@$(MAKE) clean -C libft/
-	@$(rm) $(NAME)
+	$(MAKE) clean -C libft/
 
 fclean: clean
-	@$(MAKE) fclean -C libft/
-	@$(rm) $(NAME)
+	$(MAKE) fclean -C libft/
+	$(rm) $(NAME)
 
 re: fclean all
 
